@@ -1,0 +1,109 @@
+Source: openal-soft
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Bruno "Fuddl" Kleinert <fuddl@tauware.de>,
+           Reinhard Tartler <siretart@tauware.de>,
+           Gonéri Le Bouder <goneri@rulezlan.org>,
+           Bret Curtis <psi29a@gmail.com>
+Build-Depends: debhelper-compat (= 13),
+               libasound2-dev [linux-any],
+               cmake, portaudio19-dev, libpulse-dev, libsndio-dev
+Standards-Version: 4.5.0
+Section: libs
+Vcs-Git: https://salsa.debian.org/games-team/openal-soft.git
+Vcs-Browser: https://salsa.debian.org/games-team/openal-soft
+Homepage: http://kcat.strangesoft.net/openal.html
+
+Package: libopenal-dev
+Multi-Arch: same
+Section: libdevel
+Architecture: any
+Depends: libopenal1 (= ${binary:Version}),
+ ${misc:Depends}
+Description: Software implementation of the OpenAL audio API (development files)
+ OpenAL, the Open Audio Library, is a joint effort to create an open,
+ vendor-neutral, cross-platform API for interactive, primarily spatialized
+ audio. OpenAL's primary audience are application developers and desktop
+ users that rely on portable standards like OpenGL, for games and other
+ multimedia applications.
+ .
+ This package contains the files necessary for development with OpenAL .
+
+Package: libopenal1
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: libopenal-data (= ${source:Version}),
+         ${shlibs:Depends},
+         ${misc:Depends}
+Recommends: ${shlibs:Recommends}
+Suggests: ${shlibs:Suggests}
+Description: Software implementation of the OpenAL audio API (shared library)
+ OpenAL, the Open Audio Library, is a joint effort to create an open,
+ vendor-neutral, cross-platform API for interactive, primarily spatialized
+ audio. OpenAL's primary audience are application developers and desktop
+ users that rely on portable standards like OpenGL, for games and other
+ multimedia applications.
+ .
+ This library is meant as a compatible update/replacement to the OpenAL Sample
+ Implementation (the SI). The SI has been unmaintained for quite a while, and
+ would require a lot of work to clean up. This is a fork the old Windows version
+ to attempt an accelerated ALSA version of an OpenAL implementation.
+ .
+ OpenAL Soft supports mono, stereo, 4-channel, 5.1, 6.1, and 7.1 output, as
+ opposed to the SI's 4-channel max (though it did have some provisions for 6
+ channel, this was not 5.1, and was seemingly a "late" addition). OpenAL Soft
+ does not support the Vorbis and MP3 extensions, however those were considered
+ deprecated even in the SI. It does, though, support some of the newer
+ extensions like AL_EXT_FLOAT32 and AL_EXT_MCFORMATS for multi-channel and
+ floating-point formats, as well as ALC_EXT_EFX for environmental audio effects,
+ and others.
+ .
+ This package installs the OpenAL Soft shared library.
+
+Package: openal-info
+Multi-Arch: allowed
+Section: sound
+Architecture: any
+Breaks: libopenal-dev-bin (<< 1:1.15.1-5~)
+Replaces: libopenal-dev-bin (<< 1:1.15.1-5~)
+Depends: libopenal1 (= ${binary:Version}),
+         ${shlibs:Depends},
+         ${misc:Depends}
+Description: Informational utility for the OpenAL audio API
+ This utility is useful in diagnosing OpenAL related issues and for
+ displaying helpful informationa about what is supported on your system
+ with OpenAL.
+ .
+ This package installs the OpenAL Soft openal-info utility.
+
+Package: makehrtf
+Multi-Arch: allowed
+Section: sound
+Architecture: any
+Breaks: libopenal-dev-bin (<< 1:1.15.1-5~)
+Replaces: libopenal-dev-bin (<< 1:1.15.1-5~)
+Depends: libopenal1 (= ${binary:Version}),
+         ${shlibs:Depends},
+         ${misc:Depends}
+Description: HRTF Processing and Composition Utility
+ OpenAL Soft is a branch of OpenAL which has filtering implemented in software,
+ and it also adds support for head-related transfer functions (HRTFs).
+ HRTFs permit 3D auralization through stereo earphones.
+ .
+ This package installs the makehrtf utility.
+
+Package: libopenal-data
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Replaces: libopenal1 (<< 1:1.14-5)
+Breaks: libopenal1 (<< 1:1.14-5)
+Description: Software implementation of the OpenAL audio API (data files)
+ OpenAL, the Open Audio Library, is a joint effort to create an open,
+ vendor-neutral, cross-platform API for interactive, primarily spatialized
+ audio. OpenAL's primary audience are application developers and desktop
+ users that rely on portable standards like OpenGL, for games and other
+ multimedia applications.
+ .
+ This package installs data files used by the OpenAL Soft shared library.

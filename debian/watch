@@ -1,0 +1,2 @@
+version=4
+https://github.com/kcat/openal-soft/releases .*archive/openal-soft-([0-9\.]*).tar.gz

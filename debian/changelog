@@ -1,0 +1,489 @@
+openal-soft (1:1.19.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * Declare compliance with Debian Policy 4.5.0.
+  * Work around FTBFS with GCC 10 by building with -fcommon. (Closes: #957635)
+  * Switch to debhelper-compat = 13.
+  * Rename TODO.Debian to TODO again as suggested by Lintian.
+
+ -- Markus Koschany <apo@debian.org>  Thu, 24 Sep 2020 23:21:03 +0200
+
+openal-soft (1:1.19.1-1) unstable; urgency=medium
+
+  [ Bret Curtis ]
+  * New upstream release
+
+ -- Bret Curtis <psi29a@gmail.com>  Mon, 15 Oct 2018 12:59:18 -0400
+
+openal-soft (1:1.19.0-2) unstable; urgency=medium
+
+  [ Bret Curtis ]
+  * Added Fix_buffer_queue_mixing_logic.patch which (Closes: #910238)
+
+ -- Bret Curtis <psi29a@gmail.com>  Thu, 04 Oct 2018 10:59:18 -0400
+
+openal-soft (1:1.19.0-1) unstable; urgency=medium
+
+  [ Bret Curtis ]
+  * New upstream release
+  * Updated standards version
+  * Updated libopenal1.symbols to add new API entries and remove
+    one API entry that should have never made it into production as
+    it was broken (WIP) to begin with.
+
+ -- Bret Curtis <psi29a@gmail.com>  Wed, 26 Sep 2018 10:59:18 -0400
+
+openal-soft (1:1.18.2-3) unstable; urgency=medium
+
+  * Team upload
+  * Alter Vcs-* for migration from Alioth to salsa.debian.org
+
+ -- Simon McVittie <smcv@debian.org>  Mon, 30 Apr 2018 11:05:33 +0100
+
+openal-soft (1:1.18.2-2) unstable; urgency=medium
+
+  * Team upload
+  * d/rules: Add an explicit 'build' rule. .PHONY is ignored for implicit
+    rules like the one for %, but this was previously masked by debhelper
+    bug #880840, which resulted in the actual build being done during the
+    binary target. This fixes FTBFS with dpkg-buildpackage --build=any,all
+    (Closes: #887664)
+
+ -- Simon McVittie <smcv@debian.org>  Mon, 22 Jan 2018 08:07:28 +0000
+
+openal-soft (1:1.18.2-1) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Bret Curtis ]
+  * New upstream release
+  * Remove unnecessary patches
+  * Add two new symbols to libopenal1.symbol
+  * Declare compliance with Debian Policy 4.1.3.
+
+  [ Markus Koschany ]
+  * Switch to compat level 11.
+  * Drop -dbg package and use the automatic -dbgsym package instead.
+
+ -- Markus Koschany <apo@debian.org>  Sat, 06 Jan 2018 14:12:22 +0100
+
+openal-soft (1:1.17.2-5) unstable; urgency=medium
+
+  [ Bret Curtis ]
+  * Updated standards version
+
+ -- Bret Curtis <psi29a@gmail.com>  Wed, 18 Jan 2017 10:59:18 -0400
+
+openal-soft (1:1.17.2-4) unstable; urgency=medium
+
+  [ Bret Curtis ]
+  * fix arm build with broken fpu_neon extension
+
+ -- Bret Curtis <psi29a@gmail.com>  Wed, 14 Sep 2016 08:59:02 +0200
+
+openal-soft (1:1.17.2-2) unstable; urgency=medium
+
+  [ Bret Curtis ]
+  * add support back to sndio (Closes: #808184, #680742)
+
+  [ Helmut Grohne ]
+  * Fix FTCBFS: (Closes: #836600)
+    + Invoke cmake via dh_auto_configure
+    + Pass --builddirectory to dh
+    + Invoke triplet-prefixed CC from d/rules
+
+ -- Helmut Grohne <helmut@subdivi.de>  Sun, 04 Sep 2016 07:59:01 +0200
+
+openal-soft (1:1.17.2-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Bret Curtis ]
+  * New upstream release (Closes: #818721)
+  * Cleanup of unnecessary patches.
+  * Updated symbols file, removed incomplete extensions.
+    (This is technically an ABI break, but none of these extensions are
+     referenced by anything in Debian)
+
+  [ Simon McVittie ]
+  * debian/copyright: update
+  * debian/changelog: clarify ABI status of this version
+  * debian/changelog: close #818721
+  * Standards-Version: 3.9.7 (no changes needed)
+  * Switch Vcs-Git, Vcs-Browser to cgit and https
+
+ -- Simon McVittie <smcv@debian.org>  Mon, 21 Mar 2016 08:03:52 +0000
+
+openal-soft (1:1.16.0-3) unstable; urgency=medium
+
+  * Team upload
+  * Cherry-pick commit ba827cd from upstream to fix FTBFS on arm64
+
+ -- Simon McVittie <smcv@debian.org>  Tue, 12 May 2015 10:09:45 +0100
+
+openal-soft (1:1.16.0-2) unstable; urgency=medium
+
+  * Team upload
+  * Re-upload experimental version to unstable now that the freeze
+    is over
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 10 May 2015 15:02:19 +0100
+
+openal-soft (1:1.16.0-1) experimental; urgency=medium
+
+  * Team upload
+
+  [ Bret Curtis ]
+  * New upstream release.
+  * Updated descriptions of packages.
+  * Updated libopenal1.symbols
+  * Removed etconf.patch, we now install alsoft.conf via debian/rules.
+  * Added HRTF datasets, so it all "just works".
+  * Updated copyright file
+  * Updated standards
+
+  [ Simon McVittie ]
+  * debian/copyright: add more copyright holders and licenses
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 08 Feb 2015 23:04:56 +0000
+
+openal-soft (1:1.15.1-5) unstable; urgency=medium
+
+  * Team upload
+  * openal-info and makehrtf must have Breaks and Replaces on
+    libopenal-dev-bin (Policy §7.3, 7.4)
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 17 Aug 2014 13:38:50 +0100
+
+openal-soft (1:1.15.1-4) unstable; urgency=medium
+
+  * Added etcconf.patch to bring back the default conf file,
+    closes: 755862, 756891
+  * Added debug packages. (Closes: 659364)
+  * Made the additional binaries into separate packages.
+
+ -- Bret Curtis <psi29a@gmail.com>  Mon, 4 Aug 2014 08:38:25 +0100
+
+openal-soft (1:1.15.1-3) unstable; urgency=medium
+
+  * Removing RoarAudio (libsndio) dependency until bug:755846 is fixed.
+  * The above also happens to fix the multi-arch problem. (Closes: 756066)
+
+ -- Bret Curtis <psi29a@gmail.com>  Fri, 25 Jul 2014 08:37:25 +0100
+
+openal-soft (1:1.15.1-2) unstable; urgency=medium
+
+  * Updated debian/copyright. (Closes: 755793)
+
+ -- Bret Curtis <psi29a@gmail.com>  Wed, 23 Jul 2014 08:36:25 +0100
+
+openal-soft (1:1.15.1-1) unstable; urgency=medium
+
+  * Added openal-info binary. (Closes: 659198)
+  * Added makehrtf binary.
+  * Added 'audio' to short description. (Closes: 598064)
+  * Added FLAGS fixes for cmake in rules for hardening.
+  * Added man pages for the two binaries.
+  * New upstream release. (Closes: 731159)
+  * Removed libsndio-dlopen-change.patch, no longer required.
+  * Removed no-fpuextended.patch, macros no longer used.
+  * Removed need for lintian overrides.
+
+ -- Bret Curtis <psi29a@gmail.com>  Wed, 16 Jul 2014 08:35:25 +0100
+
+openal-soft (1:1.14-5) unstable; urgency=medium
+
+  [Cyril Brulebois]
+  * Remove myself from Uploaders.
+
+  [Bret Curtis]
+  * Added myself to uploaders.
+  * Updated Standards-Version to 3.9.5
+  * Removed DM-Upload-Allowed as it is obsolete.
+  * Added symbols file for libopenal1 (Closes: 662839)
+  * Removed Andres Mejia from uploaders (Closes: 743575)
+
+ -- Bret Curtis <psi29a@gmail.com>  Tue, 01 Jul 2014 08:35:25 +0100
+
+openal-soft (1:1.14-4) unstable; urgency=medium
+
+  * Drop libroar-compat2 to Suggests field. (Closes: #673178)
+  * Drop libportaudio2 to Suggests field.
+
+ -- Andres Mejia <amejia@debian.org>  Sat, 02 Jun 2012 10:20:29 -0400
+
+openal-soft (1:1.14-3) unstable; urgency=low
+
+  * Add dlopened libs as Recommends for libopenal1.
+  * Dlopen libsndio.so.2 instead of libsndio.so.
+
+ -- Andres Mejia <amejia@debian.org>  Sat, 05 May 2012 17:24:59 -0400
+
+openal-soft (1:1.14-2) unstable; urgency=low
+
+  * Fix build failures on architectures without _FPU_EXTENDED. (Closes: #666963)
+
+ -- Andres Mejia <amejia@debian.org>  Tue, 01 May 2012 10:52:21 -0400
+
+openal-soft (1:1.14-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add CPPFLAGS to CFLAGS. (Closes: #666095)
+  * Enable new sndio support.
+
+ -- Andres Mejia <amejia@debian.org>  Sun, 01 Apr 2012 16:19:00 -0400
+
+openal-soft (1:1.13-6) unstable; urgency=low
+
+  * Enable hardened compiler flags.
+
+ -- Andres Mejia <amejia@debian.org>  Mon, 19 Mar 2012 10:13:18 -0400
+
+openal-soft (1:1.13-5) unstable; urgency=low
+
+  * Set Multi-Arch: foreign for libopenal-data. (Closes: #645962)
+  * Allow dev package to be multiarch installable.
+  * Set Standards-Version to 3.9.3.
+
+ -- Andres Mejia <amejia@debian.org>  Fri, 16 Mar 2012 16:47:13 -0400
+
+openal-soft (1:1.13-4) unstable; urgency=low
+
+  * Remove unnecessary use of patch to support multiarch.
+  * Update Vcs-* entries.
+
+ -- Andres Mejia <amejia@debian.org>  Sun, 25 Sep 2011 12:48:53 -0400
+
+openal-soft (1:1.13-3) unstable; urgency=low
+
+  * Update to my @debian.org email.
+  * Set 'pristine-tar' to true by default.
+  * Convert package to support multiarch libraries.
+  * Support parallel builds.
+  * Removed changes to compiler flags. Upstream does not want to set '-O3'.
+  * Set option to abort on any upstream change.
+
+ -- Andres Mejia <amejia@debian.org>  Sun, 25 Sep 2011 11:12:08 -0400
+
+openal-soft (1:1.13-2) unstable; urgency=low
+
+  * Don't build with ALSA compatibility on non-Linux architectures.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Fri, 22 Apr 2011 18:30:58 -0400
+
+openal-soft (1:1.13-1) unstable; urgency=low
+
+  * New upstream release.
+  * Update Standards-Version to 3.9.2.
+  * Use linux-any architecture wildcard for libasound2-dev build depends.
+  * Build depend on liboss-salsa-dev for non-Linux architectures.
+  * Build openal-soft with 'Release' configuration. This removes debugging
+    package.
+  * Use -O3 instead of -O2 compiler optimizations.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Fri, 22 Apr 2011 16:52:34 -0400
+
+openal-soft (1:1.12.854-2) unstable; urgency=low
+
+  * Remove Thierry Reding from Uploaders. (Closes: #572541)
+
+ -- Andres Mejia <mcitadel@gmail.com>  Sat, 29 May 2010 12:39:55 -0400
+
+openal-soft (1:1.12.854-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Sat, 29 May 2010 12:26:00 -0400
+
+openal-soft (1:1.11.753-1) unstable; urgency=low
+
+  * New upstream release.
+  * Provides better compatibility with newer PulseAudio libraries.
+    (Closes: #566634)
+  * Fix issue where certain apps would hang while using pulse as the backend.
+    (Closes: #562524)
+  * Bump Standards-Version to 3.8.4.
+  * Update openal-soft-get-orig-source script.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Mon, 08 Feb 2010 15:58:01 -0500
+
+openal-soft (1:1.10.622-1) unstable; urgency=low
+
+  * New upstream release.
+  * Issue with using PulseAudio backend fixed.
+    (Closes: #548373)
+    (Closes: #551018)
+  * Switch to Debian source format 3.0 (quilt).
+
+ -- Andres Mejia <mcitadel@gmail.com>  Wed, 25 Nov 2009 14:59:51 -0500
+
+openal-soft (1:1.9.563-2) unstable; urgency=low
+
+  * Add phony target for "build" since there's a "build" directory in the source
+    tree.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Thu, 15 Oct 2009 19:37:17 -0400
+
+openal-soft (1:1.9.563-1) unstable; urgency=low
+
+  * Update openal-soft-get-orig-source script to download new release.
+  * Imported Upstream version 1.9.563
+  * hurd_build_fix.patch is no longer needed, applied upstream.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Fri, 09 Oct 2009 21:27:54 -0400
+
+openal-soft (1:1.8.466-3) unstable; urgency=low
+
+  * Change development package back to a arch-dependent package.
+  * Bump Standards-Version to 3.8.3.
+  * Add patch to fix build failures on Hurd. (Closes: #534327)
+  * Add README.source to explain use of quilt patch system.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Thu, 20 Aug 2009 22:39:33 -0400
+
+openal-soft (1:1.8.466-2) unstable; urgency=low
+
+  * libopenal-dev is now arch-independent, so change Architecture field
+    to 'all'.
+  * Bump Standards-Version to 3.8.2. No other changes needed.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Sat, 20 Jun 2009 23:38:17 -0400
+
+openal-soft (1:1.8.466-1) unstable; urgency=low
+
+  * Drop openal-config and static library.
+  * Update binary package descriptions.
+  * (cosmetics) Tidy up Uploaders and Build-Depends field.
+  * Modify script for new upstream version.
+  * Upload new upstream release 1.8.466.
+  * Specifically Build-Depend on debhelper (>= 7.0.50).
+  * Remove current patches as they've been applied upstream.
+  * Add in support for PortAudio and PulseAudio.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Tue, 09 Jun 2009 20:29:11 -0400
+
+openal-soft (1:1.7.411-3) unstable; urgency=low
+
+  * Add main upstream contact to debian/copyright.
+  * Install upstream supplied openal.pc file.
+  * Patch CMakeLists.txt to install alsoft.conf.
+  * Switch ordering patches are installed.
+  * Add patches to install openal-config and manpage through build system.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Sun, 17 May 2009 01:03:03 -0400
+
+openal-soft (1:1.7.411-2) unstable; urgency=low
+
+  * Fix alsoftrc.conf. (Closes: #527984)
+  * Update TODO.Debian
+  * Update watch file to default DEHS would use.
+  * Take advantage of debhelper 7 features.
+  * Use libopenal-dev.manpages to install openal-config.1 manpage
+  * Remove unnecessary need to prepend debian/tmp/ in paths for *.install files.
+  * Add ${misc:Depends} in Depends field for binary packages. Silences lintian
+    warnings.
+  * Use 'install' instead of 'mkdir/cp' to install extra files.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Sat, 16 May 2009 15:59:15 -0400
+
+openal-soft (1:1.7.411-1) unstable; urgency=low
+
+  [ Paul Wise ]
+  * Drop bogus libopenal0/libopenal0a Replaces (Closes: #519995)
+
+  [ Andres Mejia ]
+  * New upstream release. (Closes: #506493)
+  * Removed deinit-move.patch and no-init-force.patch, they're applied upstream.
+  * Performed quilt refresh on remaining patch.
+  * Updated watch file.
+  * Bumped Standards-Version to 3.8.1.
+  * Address lintian info message 'binary-control-field-duplicates-source field
+    "section" in package libopenal1'.
+  * Address lintian info message 'copyright-with-old-dh-make-debian-copyright'.
+  * Address lintian warning 'wrong-section-according-to-package-name
+    libopenal1-dbg => debug'.
+  * Update version in openal.pc.
+  * Update version in openal-config.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Tue, 05 May 2009 01:57:29 -0400
+
+openal-soft (1:1.4.272-2) unstable; urgency=low
+
+  [ Gerfried Fuchs ]
+  * Pulled upstream commits e66bb09156bb69725f91b2 and eba60c30c5e1676786b33b
+    to fix an (de)initialization issue that produces segfaults when doing
+    autofoo in some special circumstances.
+  * Add removal of quilt's .pc directory when cleaning up, too.
+  * quilt refresh patch(es).
+
+ -- Cyril Brulebois <kibi@debian.org>  Sun, 10 Aug 2008 01:04:30 +0200
+
+openal-soft (1:1.4.272-1) unstable; urgency=low
+
+  [ Andres Mejia ]
+  * New upstream release.
+  * Change Priority of packages to optional, except for debug package.
+  * Fix manpage for openal-config. Closes: #464676
+  * Fix typo for development package description. Closes: #465310
+
+  [ Reinhard Tartler ]
+  * loosen shlibs dependencies. We don't need tight dependencies on
+    libopenal1.
+
+ -- Reinhard Tartler <siretart@tauware.de>  Sun, 13 Jul 2008 10:50:55 +0200
+
+openal-soft (1:1.3.253-5) unstable; urgency=low
+
+  [ Andres Mejia ]
+  * Exclude libasound2-dev dependency for kfreebsd and hurd kernels.
+  * Bumped to Standards-Version 3.8.0 (no changes required).
+  * Add watch file.
+
+  [ Reinhard Tartler ]
+  * reenable building of libopenal-dev.
+
+ -- Reinhard Tartler <siretart@tauware.de>  Sun, 29 Jun 2008 10:32:20 +0200
+
+openal-soft (1:1.3.253-4) unstable; urgency=low
+
+  * fix debian/copyright. Package is LGPL not GPL.
+
+ -- Reinhard Tartler <siretart@tauware.de>  Sun, 15 Jun 2008 15:31:47 +0200
+
+openal-soft (1:1.3.253-3) unstable; urgency=low
+
+  * upload to unstable as discussed with the debian release team. See
+    http://lists.debian.org/debian-release/2008/06/msg00163.html for details.
+
+ -- Reinhard Tartler <siretart@tauware.de>  Mon, 09 Jun 2008 10:45:07 +0200
+
+openal-soft (1:1.3.253-2) experimental; urgency=low
+
+  [ Andres Mejia ]
+  * Fix typo in copyright file.
+  * Update Cyril's email address.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Sun, 08 Jun 2008 01:07:34 -0400
+
+openal-soft (1:1.3.253-1) experimental; urgency=low
+
+  [Bruno Kleinert]
+  * Initial release (Closes: #473128)
+
+  [Andres Mejia]
+  * Make the build output verbose.
+  * Allow options passed to cmake to be overridable using DEB_CMAKE_OPTIONS.
+  * Support nostrip option.
+  * Build "Release" type libraries by default.
+  * Support building of static libraries.
+  * Added myself in Uploaders field.
+  * Set libopenal-dev to depend on binary version.
+  * Added new todo. Also renamed TODO to TODO.Debian.
+  * Added README.Debian.
+  * Including pkgconfig file.
+  * Generate shlibs file with exact version information as well.
+  * Add openal-config script.
+  * Added 'DM-Upload-Allowed: yes' field.
+  * Added uploaders from old openal package.
+
+ -- Andres Mejia <mcitadel@gmail.com>  Fri, 16 May 2008 14:25:48 -0400

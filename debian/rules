@@ -1,0 +1,78 @@
+#!/usr/bin/make -f
+
+# Uncomment to view all compilation commands and fix W-compiler-flags-hidden
+export VERBOSE=1
+
+#CMake silently ignores CPPFLAGS. Below will properly set CFLAGS/CXXFLAGS
+#https://wiki.debian.org/Hardening#Notes_for_packages_using_CMake
+CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS:=$(shell dpkg-buildflags --get CFLAGS) $(CPPFLAGS) -fcommon
+CXXFLAGS:=$(shell dpkg-buildflags --get CXXFLAGS) $(CPPFLAGS)
+LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
+
+include /usr/share/dpkg/architecture.mk
+ifeq ($(origin CC),default)
+	CC = $(DEB_HOST_GNU_TYPE)-gcc
+endif
+
+# Use this variable to allow options passed to cmake to be overridable
+DEB_CMAKE_OPTIONS ?= -DCMAKE_VERBOSE_MAKEFILE=ON \
+		-DLIB_SUFFIX="/$(DEB_HOST_MULTIARCH)" \
+		-DEXAMPLES=OFF \
+		..
+
+BUILD_TREE=$(CURDIR)/build-tree
+
+DLOPENED_RECOMMENDS_LIBS = -lpulse
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+DLOPENED_RECOMMENDS_LIBS += -lasound
+endif
+DLOPENED_SUGGESTS_LIBS = -lportaudio -lsndio
+
+.PHONY: build
+# This looks redundant with the implicit rule for %, but it isn't: .PHONY
+# is ignored for implicit rules, so we need a separate rule for build.
+build:
+	dh $@ --builddirectory=$(BUILD_TREE)
+%:
+	dh $@ --builddirectory=$(BUILD_TREE)
+
+override_dh_auto_clean:
+	rm -rf $(BUILD_TREE)
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(DEB_CMAKE_OPTIONS)
+
+override_dh_installchangelogs:
+	dh_installchangelogs ChangeLog
+
+copyright_check:
+	${MAKE} -f /usr/share/cdbs/1/rules/utils.mk debian/stamp-copyright-check
+	rm debian/stamp-copyright-check
+
+override_dh_auto_install:
+	dh_auto_install
+	install -d debian/tmp/etc/openal
+	install -m644 \
+		debian/tmp/usr/share/openal/alsoftrc.sample \
+		debian/tmp/etc/openal/alsoft.conf
+
+override_dh_missing:
+	dh_missing --list-missing
+
+override_dh_shlibdeps: debian/tmp/openal-soft-Recommends-dummy.so debian/tmp/openal-soft-Suggests-dummy.so
+	dh_shlibdeps -O--parallel
+	# Need to manually add dependencies for dlopened libs.
+	dpkg-shlibdeps -dRecommends -edebian/tmp/openal-soft-Recommends-dummy.so -xlibc6 -O >>debian/libopenal1.substvars
+	dpkg-shlibdeps -dSuggests -edebian/tmp/openal-soft-Suggests-dummy.so -xlibc6 -O >>debian/libopenal1.substvars
+
+debian/tmp/openal-soft-Recommends-dummy.so:
+	mkdir -p debian/tmp
+	$(CC) -xc -shared -Wl,--no-as-needed -o $@ /dev/null $(DLOPENED_RECOMMENDS_LIBS)
+
+debian/tmp/openal-soft-Suggests-dummy.so:
+	mkdir -p debian/tmp
+	$(CC) -xc -shared -Wl,--no-as-needed -o $@ /dev/null $(DLOPENED_SUGGESTS_LIBS)
+
+get-orig-source:
+	$(dir $_)openal-soft-get-orig-source
