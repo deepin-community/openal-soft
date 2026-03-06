@@ -1,25 +1,34 @@
 Source: openal-soft
 Priority: optional
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
-Uploaders: Bruno "Fuddl" Kleinert <fuddl@tauware.de>,
-           Reinhard Tartler <siretart@tauware.de>,
-           Gonéri Le Bouder <goneri@rulezlan.org>,
-           Bret Curtis <psi29a@gmail.com>
-Build-Depends: debhelper-compat (= 13),
-               libasound2-dev [linux-any],
-               cmake, portaudio19-dev, libpulse-dev, libsndio-dev
-Standards-Version: 4.5.0
+Uploaders:
+ Bruno "Fuddl" Kleinert <fuddl@tauware.de>,
+ Reinhard Tartler <siretart@tauware.de>,
+ Bret Curtis <psi29a@gmail.com>,
+Build-Depends:
+ cmake,
+ debhelper-compat (= 13),
+ libasound2-dev [linux-any],
+ libdbus-1-dev [linux-any],
+ libmysofa-dev,
+ libpipewire-0.3-dev [linux-any],
+ libpulse-dev,
+ libsndio-dev,
+ portaudio19-dev,
+Standards-Version: 4.5.1
 Section: libs
 Vcs-Git: https://salsa.debian.org/games-team/openal-soft.git
 Vcs-Browser: https://salsa.debian.org/games-team/openal-soft
-Homepage: http://kcat.strangesoft.net/openal.html
+Homepage: https://github.com/kcat/openal-soft
+Rules-Requires-Root: no
 
 Package: libopenal-dev
 Multi-Arch: same
 Section: libdevel
 Architecture: any
-Depends: libopenal1 (= ${binary:Version}),
- ${misc:Depends}
+Depends:
+ libopenal1 (= ${binary:Version}),
+ ${misc:Depends},
 Description: Software implementation of the OpenAL audio API (development files)
  OpenAL, the Open Audio Library, is a joint effort to create an open,
  vendor-neutral, cross-platform API for interactive, primarily spatialized
@@ -32,12 +41,16 @@ Description: Software implementation of the OpenAL audio API (development files)
 Package: libopenal1
 Architecture: any
 Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: libopenal-data (= ${source:Version}),
-         ${shlibs:Depends},
-         ${misc:Depends}
-Recommends: ${shlibs:Recommends}
-Suggests: ${shlibs:Suggests}
+Pre-Depends:
+ ${misc:Pre-Depends},
+Depends:
+ libopenal-data (= ${source:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Recommends:
+ ${shlibs:Recommends},
+Suggests:
+ ${shlibs:Suggests},
 Description: Software implementation of the OpenAL audio API (shared library)
  OpenAL, the Open Audio Library, is a joint effort to create an open,
  vendor-neutral, cross-platform API for interactive, primarily spatialized
@@ -61,44 +74,38 @@ Description: Software implementation of the OpenAL audio API (shared library)
  .
  This package installs the OpenAL Soft shared library.
 
-Package: openal-info
+Package: openal-tools
 Multi-Arch: allowed
 Section: sound
 Architecture: any
-Breaks: libopenal-dev-bin (<< 1:1.15.1-5~)
-Replaces: libopenal-dev-bin (<< 1:1.15.1-5~)
-Depends: libopenal1 (= ${binary:Version}),
-         ${shlibs:Depends},
-         ${misc:Depends}
-Description: Informational utility for the OpenAL audio API
- This utility is useful in diagnosing OpenAL related issues and for
+Breaks:
+ libopenal-dev-bin (<< 1:1.15.1-5~),
+ makemhr (<< 1:1.23.1-1~),
+ openal-info (<< 1:1.23.1-1~),
+Replaces:
+ libopenal-dev-bin (<< 1:1.15.1-5~),
+ makemhr (<< 1:1.23.1-1~),
+ openal-info (<< 1:1.23.1-1~),
+Depends:
+ libopenal1 (= ${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: Utilities for the OpenAL audio API
+ These utilities are useful in diagnosing OpenAL related issues and for
  displaying helpful informationa about what is supported on your system
  with OpenAL.
  .
- This package installs the OpenAL Soft openal-info utility.
-
-Package: makehrtf
-Multi-Arch: allowed
-Section: sound
-Architecture: any
-Breaks: libopenal-dev-bin (<< 1:1.15.1-5~)
-Replaces: libopenal-dev-bin (<< 1:1.15.1-5~)
-Depends: libopenal1 (= ${binary:Version}),
-         ${shlibs:Depends},
-         ${misc:Depends}
-Description: HRTF Processing and Composition Utility
- OpenAL Soft is a branch of OpenAL which has filtering implemented in software,
- and it also adds support for head-related transfer functions (HRTFs).
- HRTFs permit 3D auralization through stereo earphones.
- .
- This package installs the makehrtf utility.
+ This package installs additional OpenAL Soft related binaries.
 
 Package: libopenal-data
 Architecture: all
 Multi-Arch: foreign
-Depends: ${misc:Depends}
-Replaces: libopenal1 (<< 1:1.14-5)
-Breaks: libopenal1 (<< 1:1.14-5)
+Depends:
+ ${misc:Depends},
+Replaces:
+ libopenal1 (<< 1:1.14-5),
+Breaks:
+ libopenal1 (<< 1:1.14-5),
 Description: Software implementation of the OpenAL audio API (data files)
  OpenAL, the Open Audio Library, is a joint effort to create an open,
  vendor-neutral, cross-platform API for interactive, primarily spatialized
