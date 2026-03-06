@@ -3,6 +3,9 @@
 # Uncomment to view all compilation commands and fix W-compiler-flags-hidden
 export VERBOSE=1
 
+# Add hardening
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
 #CMake silently ignores CPPFLAGS. Below will properly set CFLAGS/CXXFLAGS
 #https://wiki.debian.org/Hardening#Notes_for_packages_using_CMake
 CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
@@ -20,6 +23,11 @@ DEB_CMAKE_OPTIONS ?= -DCMAKE_VERBOSE_MAKEFILE=ON \
 		-DLIB_SUFFIX="/$(DEB_HOST_MULTIARCH)" \
 		-DEXAMPLES=OFF \
 		..
+
+ifeq ($(DEB_HOST_ARCH_CPU),i386)
+DEB_CMAKE_OPTIONS += -DALSOFT_CPUEXT_SSE=OFF
+export DEB_CPPFLAGS_MAINT_APPEND += -DPFFFT_SIMD_DISABLE
+endif
 
 BUILD_TREE=$(CURDIR)/build-tree
 
@@ -73,6 +81,3 @@ debian/tmp/openal-soft-Recommends-dummy.so:
 debian/tmp/openal-soft-Suggests-dummy.so:
 	mkdir -p debian/tmp
 	$(CC) -xc -shared -Wl,--no-as-needed -o $@ /dev/null $(DLOPENED_SUGGESTS_LIBS)
-
-get-orig-source:
-	$(dir $_)openal-soft-get-orig-source
